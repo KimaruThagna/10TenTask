@@ -11,7 +11,18 @@
 		<meta name="keywords" content="Free website templates, Free bootstrap themes, Free template, Free bootstrap, Free website template">
 
     <link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,600|Montserrat:200,300,400" rel="stylesheet">
+<style>
+  form
+  {
+  overflow-y:scroll;
 
+  }
+  .helpInput
+  {
+  border:none;
+  font-weight:bold;
+  }
+</style>
 		<link rel="stylesheet" href=" {% static 'assets/css/bootstrap/bootstrap.css' %}">
     <link rel="stylesheet" href=" {% static 'assets/fonts/ionicons/css/ionicons.min.css' %}">
     <link rel="stylesheet" href="{% static 'assets/fonts/law-icons/font/flaticon.css' %}">
@@ -26,7 +37,7 @@
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/landing-2.css' %}">
 	</head>
-	<body data-spy="scroll" data-target="#pb-navbar" data-offset="200">
+	<body data-spy="scroll" data-target="#pb-navbar" data-offset="200" onload="totalSales()">
 
     <nav class="navbar navbar-expand-lg navbar-dark pb_navbar pb_scrolled-light" id="pb-navbar">
       <div class="container">
@@ -51,7 +62,7 @@
 
 
 
-    <section class="pb_cover_v3 overflow-hidden cover-bg-green cover-bg-opacity text-left pb_gradient_v1 pb_slant-light" id="section-home">
+    <section style="height:800px" class="pb_cover_v3 overflow-hidden cover-bg-green cover-bg-opacity text-left pb_gradient_v1 pb_slant-light" id="section-home">
       <div class="container">
         <div class="row align-items-center justify-content-center">
           <div class="col-md-6">
@@ -67,7 +78,7 @@
           </div>
           <div class="col-md-5 relative align-self-center">
 {% block checkout %}
-            <form action="{% url 'shop:purchase' %}" method="post" style="overflow-y:scroll;height:500px" class="bg-white rounded pb_form_v1">{% csrf_token %}
+            <form action="{% url 'shop:purchase' %}" method="post" style="overflow-y:scroll;height:600px" class="bg-white rounded pb_form_v1">{% csrf_token %}
                    {% if messages %}
 <ul class="messages">
     {% for message in messages %}
@@ -81,10 +92,13 @@
 <!--              DISPLAY OBJECTS ITERATIVELY IN FORM ELEMENTS TO ALLOW EDITS-->
               {% for obj in items %}
               <div class="form-group">
-                <img  style="height:30px" src="{{obj.itemImage.url}}"><p class="unitVal"> Priced at {{obj.pricePerKg}} per KG</p>
+                <img  style="height:30px" src="{{obj.itemImage.url}}">
+                <div class="row"> <p> Price per KG </p> <input class="unitVal helpInput" value="{{obj.pricePerKg.amount}}" > </div>
+                <label> Item Name</label>
                 <input type="text" class="form-control pb_height-50 reverse" placeholder="Item Name" name="item" value="{{ obj.name}}" readonly required>
               </div>
               <div class="form-group">
+                <label> Item Quantity</label>
                 <input type="number" min="1" class=" quantity form-control pb_height-50 reverse" name="qty" oninput="totalSales()" placeholder="Quantity" value="{{obj.quantity}}" required>
               </div>
               <hr>
@@ -93,13 +107,13 @@
               <font color="green"> Summary and Subtotals </font>
               <table>
                 <tr>
-                  <td>Subtotals </td> <td id="sub"> </td>
+                  <td>Subtotals </td> <td > <input  class="helpInput" id="sub" readonly> </td>
                 </tr>
                  <tr>
-                  <td>V.A.T </td> <td id="tax"></td>
+                  <td>V.A.T </td> <td> <input class="helpInput" id="tax" readonly> </td>
                 </tr>
                  <tr>
-                  <td>Total </td> <td id="total"></td>
+                  <td>Total </td> <td > <input  class="helpInput" id="total" readonly> </td>
                 </tr>
               </table>
               <hr>
@@ -138,14 +152,17 @@
       </div>
     </footer>
 <!--    USE JAVASCRIPT TO ALLOW UPDATES WITHOUT REFRESH-->
-    <script type="javascript">
+    <script >
     function totalSales() {
-         console.log('nicieribeiqwid lqi');
+
         var quantities = document.getElementsByClassName("quantity");
-        var unitValues = document.getElementsByClassName("unitval");
+        var unitValues = document.getElementsByClassName("unitVal");
+        console.log(quantities);
+        console.log(unitValues);
         var subtotal_val=0;
         for(var i=0; i< quantities.length; i++) {
-            var subtotal_val += quantities[i].value * unitValues[i].value;
+            var subtotal_val = subtotal_val+(quantities[i].value * unitValues[i].value );
+
         }
 
 		var subtotals = document.getElementById('sub');
@@ -156,8 +173,9 @@
 		tax.value=tax_val;
 
 		var totals = document.getElementById('total');
-		var totalValue = tax_val + subtotals;
+		var totalValue = tax_val + subtotal_val;
 		totals.value = totalValue;
+		console.log(totalValue);
 
 
 	}
