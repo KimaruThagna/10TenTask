@@ -83,10 +83,10 @@
               {% for obj in items %}
               <div class="form-group">
                 <img  style="height:30px" src="{{obj.itemImage.url}}"><p class="unitVal"> Priced at {{obj.pricePerKg}} per KG</p>
-                <input type="text" class="form-control pb_height-50 reverse" placeholder="Item Name" value="{{ obj.name}}" readonly required>
+                <input type="text" class="form-control pb_height-50 reverse" placeholder="Item Name" name="item" value="{{ obj.name}}" readonly required>
               </div>
               <div class="form-group">
-                <input type="number" min="1" class=" quantity form-control pb_height-50 reverse" oninput="totalSales()" placeholder="Quantity" value="{{obj.quantity}}" required>
+                <input type="number" min="1" class=" quantity form-control pb_height-50 reverse" name="qty" oninput="totalSales()" placeholder="Quantity" value="{{obj.quantity}}" required>
               </div>
               <hr>
               {% endfor %}
