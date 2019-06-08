@@ -13,3 +13,8 @@ To install either, type pip3 install django==2.2.1 or pip3 install django==2.2.1
 After installation of necessary packages, 
 navigate to the working directory where the manage.py file lives<br> Run the command python3 manage.py runserver and open the url provided 127.0.0.1:8000
 Screenshots have been included to depict running of the program in the browser
+
+
+Admin Portal access
+Username 10admin
+Password tenten123
