@@ -21,13 +21,13 @@ def Home(request):
 def Purchase(request):
     if request.POST:
 
-        receivedData=dict(request.POST)
+        receivedData=dict(request.POST)# convert to dictionary for ease of access
         item=list(receivedData['item'])
         qty = list(receivedData['qty'])
 
         itemSetDictionary={}
         for i in range (len(item)):
-            itemSetDictionary[item[i]]=qty[i]
+            itemSetDictionary[item[i]]=qty[i] #  generate a convinient dictionary
 
 
         # check if available in DB
@@ -50,7 +50,7 @@ def Purchase(request):
     else:
         return HttpResponseRedirect(reverse("shop:home"))
 
-
+# confirmation page
 def Confirm(request):
     return render(request, 'shop/purchase_confirm.html', context={})
 
