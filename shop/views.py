@@ -1,6 +1,7 @@
 from django.shortcuts import render,HttpResponse,reverse,HttpResponseRedirect
 from django.contrib import messages
 from django.db.models import F
+from django.db.models import Avg
 from .models import *
 import json
 # Create your views here.
@@ -31,8 +32,11 @@ def Purchase(request):
 
         # check if available in DB
         for obj in itemSetDictionary:
-            if int(itemSetDictionary[obj]) > int(Product.objects.filter(name=obj).quantity):
-                messages.error(request,'Sorry but we are out of'+str(obj))
+
+            if int(itemSetDictionary[obj]) >= int(Product.objects.filter(name=obj).aggregate(Avg('quantity'))['quantity__avg']):
+                # due to the property of uniqueness in name, only one value will be returned. To be able to access it, find avg
+                # which will still be same value and perform comparison euqal to prevents 0 stock
+                messages.error(request,'Sorry but we are out of '+str(obj))
                 return HttpResponseRedirect(reverse("shop:home"))# out of any item of purchase
             else:
                 pass
@@ -40,7 +44,6 @@ def Purchase(request):
         for obj in itemSetDictionary:
            Product.objects.filter(name=obj).update(quantity=F('quantity')-itemSetDictionary[obj])
 
-        # after update
         # after update
         messages.success(request,'Purchase complete')
         return HttpResponseRedirect(reverse("shop:confirm"))
