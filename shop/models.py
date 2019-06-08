@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 #tenten123
 
 class Product (models.Model):
-    name=models.CharField(max_length=20,null=False)
+    name=models.CharField(max_length=20,null=False,unique=True)
     quantity=models.PositiveIntegerField(null=False)
     pricePerKg=MoneyField(max_digits=7,decimal_places=2,default_currency=' AED')
     itemImage=models.ImageField(blank=True,upload_to='ShopItems')

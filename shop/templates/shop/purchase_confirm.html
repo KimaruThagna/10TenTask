@@ -1,15 +1,18 @@
 {% extends 'shop/index.html' %}
 
 {% block checkout %}
-  {% if messages %}
+
+
+ <div class="bg-white rounded pb_form_v1">
+       {% if messages %}
 <ul class="messages">
     {% for message in messages %}
     <li {% if message.tags %} class="{{ message.tags }}"{% endif %} style="color:green">{{ message }}</li>
     {% endfor %}
 </ul>
-{% endif %}
+{% endif %}<br>
+     <br>
 
- <div class="bg-white rounded pb_form_v1">
  <font color="green">Thank you for purchasing with us<br>
      <a href="{% url 'shop:home'%}"><font color="blue">Back to Home Page</font></a>
  </font>
