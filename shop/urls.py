@@ -19,4 +19,6 @@ from . import views
 app_name='shop'
 urlpatterns = [
 path(r'', views.Home, name='home'),
+path(r'purchases/', views.Purchase, name='purchase'),
+path(r'confirmed/', views.Confirm, name='confirm'),
 ]

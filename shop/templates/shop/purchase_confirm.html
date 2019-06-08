@@ -1,0 +1,9 @@
+{% extend 'shop/index.html' %}
+
+{% block checkout %}
+ <div class="bg-white rounded pb_form_v1">
+ <font color="green">Thank you for purchasing with us<br>
+     <a href="{% url 'shop:home'%}">Back to Home Page</a>
+ </font>
+ </div>
+{% endblock checkout %}
