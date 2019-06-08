@@ -78,7 +78,7 @@
           </div>
           <div class="col-md-5 relative align-self-center">
 {% block checkout %}
-            <form action="{% url 'shop:purchase' %}" method="post" style="overflow-y:scroll;height:600px" class="bg-white rounded pb_form_v1">{% csrf_token %}
+            <form action="{% url 'shop:purchase' %}" method="post" style="overflow-y:scroll;height:610px" class="bg-white rounded pb_form_v1">{% csrf_token %}
                    {% if messages %}
 <ul class="messages">
     {% for message in messages %}
