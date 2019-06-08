@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "shop",
     #3rd party
     "djmoney",
+    "widget_tweaks",
 ]
 
 MIDDLEWARE = [

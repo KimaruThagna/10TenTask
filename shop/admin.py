@@ -3,7 +3,7 @@ from .models import *
 # Register your models here.
 
 class ProductAdmin(admin.ModelAdmin):
-    readonly_fields = ('lastUpdated', 'addedOn','addedBy')
+    readonly_fields = ('lastUpdated', 'addedOn')
     list_display = ('addedBy','name','quantity','pricePerKg')
     list_editable =('name','quantity','pricePerKg')
     search_fields = ('name',)
